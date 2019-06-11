@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="374.0" prefWidth="488.0" style="-fx-background-color: #b0c9f2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.loadgen_gui.Output_ScreenController">
+   <children>
+      <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../New%20folder/cdot_logo.png" />
+         </image>
+      </ImageView>
+      <TextArea id="Out_area" fx:id="Out_area" editable="false" layoutX="13.0" layoutY="93.0" prefHeight="200.0" prefWidth="462.0" wrapText="true" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="56.0" prefHeight="37.0" prefWidth="192.0" text="Output ">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
