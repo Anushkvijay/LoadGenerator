@@ -16,55 +16,48 @@ import javafx.scene.control.TextArea;
  *
  * @author Anushk
  */
-public class Output_ScreenController extends OutputStream implements Initializable {
+public class Output_ScreenController  implements Initializable {
 
     @FXML
     private TextArea Out_area;
     final static String newline = "\n";
 
-//    public void showdata(String output_string)
-//    {   
-//       
-//        if (Platform.isFxApplicationThread()) {
-//        Out_area.appendText(output_string + newline);
-//        } else {
-//        Platform.runLater(() -> Out_area.appendText(output_string + newline));
-//    } 
-     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-     OutputStream out = new OutputStream(){
-       public void write(int b) throws IOException {
-        // redirects data to the text area
-        Out_area.appendText(String.valueOf((char) b));
-        // scrolls the text area to the end of data
-        Out_area.positionCaret(Out_area.getText().length());
-    }
-
-    @Override
-    public void write(byte[] b, int off, int len) throws IOException {
-        String s = new String(b,off,len);
-        Out_area.appendText(s);
-        Out_area.positionCaret(Out_area.getText().length());
-    }
-
-    @Override
-    public void write(byte[] b) throws IOException {
-        this.write(b, 0, b.length);
+    public void showdata(String output_string)
+    {   
+       
+       if (Platform.isFxApplicationThread()) {
+        Out_area.appendText(output_string);
+        } else {
+     Platform.runLater(() -> Out_area.appendText(output_string + newline));
     } 
-     };
-    
-        
-    }  
+     
 
+    }
+public void redirectOutputStream() {
+    OutputStream out = new OutputStream() {
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//       
-//
-//}
+        private final StringBuilder sb = new StringBuilder();
 
+        @Override
+        public void write(int b) throws IOException {
+            if (b == '\r') {
+                return;
+            }
+            if (b == '\n') {
+                final String tmp = sb.toString() + "\n";
+                showdata(tmp);
+                //updateText(text);
+                sb.setLength(0);
+            } else {
+                sb.append((char) b);
+            }
+        }
+    };
+    System.setOut(new PrintStream(out, true));
+    System.setErr(new PrintStream(out, true));
+}
     @Override
-    public void write(int b) throws IOException {
-      
+    public void initialize(URL location, ResourceBundle resources) {
+       redirectOutputStream();
     }
 }
