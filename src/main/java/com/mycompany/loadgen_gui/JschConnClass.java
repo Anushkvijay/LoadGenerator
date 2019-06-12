@@ -3,8 +3,8 @@ package com.mycompany.loadgen_gui;
 import com.jcraft.jsch.*;
 import java.io.*;
 
-public class JschConnClass {
-   //Output_ScreenController outputscreen = new Output_ScreenController(); 
+public class JschConnClass  {
+   Output_ScreenController outputscreen = new Output_ScreenController(); 
     public void connectssh() throws IOException {
         JSch jsch=new JSch();
         try {
@@ -25,6 +25,7 @@ public class JschConnClass {
             InputStream in = new PipedInputStream();
             PipedOutputStream pin = new PipedOutputStream((PipedInputStream) in);
             in=channel.getInputStream();
+            
             channel.connect();
             //System.out.println("Connected");
             String password = "root123";
@@ -41,18 +42,19 @@ public class JschConnClass {
                 }
                 if (channel.isClosed()) {
                      //outputscreen.showdata("Exit status: " + channel.getExitStatus());
-                     System.out.println("Exit status: " + channel.getExitStatus());
+                    // System.out.println("Exit status: " + channel.getExitStatus());
                     break;
                 }
             }
             channel.disconnect();
             session.disconnect();
-            System.out.println("DONE");
+            //System.out.println("DONE");
         } catch (JSchException | IOException e) {
             e.printStackTrace();
         }
           
         } 
+    
     }
     
     
