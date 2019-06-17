@@ -28,7 +28,7 @@ public class Output_ScreenController  implements Initializable {
        if (Platform.isFxApplicationThread()) {
         Out_area.appendText(output_string);
         } else {
-     Platform.runLater(() -> Out_area.appendText(output_string + newline));
+     Platform.runLater(() -> Out_area.appendText(output_string));
     } 
      
 

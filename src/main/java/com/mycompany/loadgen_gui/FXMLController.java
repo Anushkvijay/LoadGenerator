@@ -1,9 +1,15 @@
 package com.mycompany.loadgen_gui;
 
 import static com.mycompany.loadgen_gui.ValidateIPv4.isValidInet4Address;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
@@ -68,12 +74,30 @@ public class FXMLController  implements Initializable {
             if (!isValidInet4Address(DestIP)) {
                 throw new IPException(" The IP Address is not valid ");
             }
-        JschConnClass connection = new JschConnClass();
-        connection.connectssh();
-        app_stage.setScene(output_scene);
-            //app_stage.hide(); //optional
-        app_stage.show();
-        
+        String[] splittedArray = DestIP.split("\\.");
+        String Env_var = splittedArray [2];
+            System.out.println(Env_var);
+        //InetAddress.getByName(DestIP);
+                    String scriptContent;
+            scriptContent = ". /home/cms/LOADGEN/SIPP_LOADGEN/Env_$5.sh\n" +
+                            "./home/cms/LOADGEN/SIPP_LOADGEN/sipp-1.1rc6/sipp_2g_93 $3:$4 -sn uac_pcap -i 10.16.0.28 -p 9050 -mp 6030 -inf isfBest_40 -nr -m $1 -l $2 -trace_msg -trace_err -trace_stat";
+            
+            Writer output = new BufferedWriter(new FileWriter("C:/Users/Default/AppData/Local/TempTempLoadGen.sh"));
+            output.write(scriptContent);
+            output.close();
+       Thread thread = new Thread(() ->{   
+            try {
+                JschConnClass connection = new JschConnClass();
+                connection.connectssh(DestIP,Integer.toString(Destport),Integer.toString(noofcall),Integer.toString(concurcall));
+               
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+         thread.start();
+          app_stage.setScene(output_scene);
+                //app_stage.hide(); //optional
+          app_stage.show();
     }
      catch (IPException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
