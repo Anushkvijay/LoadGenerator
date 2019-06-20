@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.security.Provider.Service;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -21,18 +24,22 @@ public class Output_ScreenController  implements Initializable {
     @FXML
     private TextArea Out_area;
     final static String newline = "\n";
-
+    boolean updated;
+   
+    
     public void showdata(String output_string)
     {   
        
-       if (Platform.isFxApplicationThread()) {
+     if (Platform.isFxApplicationThread()) {
         Out_area.appendText(output_string);
         } else {
      Platform.runLater(() -> Out_area.appendText(output_string));
     } 
      
-
     }
+    
+
+
 public void redirectOutputStream() {
     OutputStream out = new OutputStream() {
 

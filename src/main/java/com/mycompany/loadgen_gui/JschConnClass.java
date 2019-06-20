@@ -5,7 +5,7 @@ import java.io.*;
 
 public class JschConnClass  {
    Output_ScreenController outputscreen = new Output_ScreenController(); 
-    public void connectssh(String ipadd,int port,int noofcall,int concurcall ) throws IOException {
+    public void connectssh(String ipadd,int noofcall,int concurcall,String Env_var ) throws IOException {
         JSch jsch=new JSch();
         try {
             Session session = jsch.getSession("csg", "10.16.0.28", 22);
@@ -15,7 +15,7 @@ public class JschConnClass  {
             session.setConfig(config);
             
             session.connect();
-            String command = "su -c 'cd /tmp && mv TempTempLoadGen.sh /home/cms/LOADGEN/SIPP_LOADGEN/sipp-1.1rc6/ && cd /home/cms/LOADGEN/SIPP_LOADGEN/sipp-1.1rc6/ && . ./TempTempLoadGen.sh " + noofcall + " " + concurcall + " " + ipadd + " " + port + " 40'";
+            String command = "su -c 'cd /tmp && . ./TempTempLoadGen.sh " + noofcall + " " + concurcall + " " + ipadd + " " + Env_var + " '";
             Channel channel=session.openChannel("exec");
             ((ChannelExec)channel).setCommand(command);
             channel.setInputStream(null);
