@@ -11,7 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +27,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class FXMLController  implements Initializable {
@@ -51,18 +55,22 @@ public class FXMLController  implements Initializable {
     @FXML
     private RadioButton Script_3g;
     
-
+    ObservableList secondgen = FXCollections.observableArrayList( 
+    "93", "50");
+    ObservableList thirdgen = FXCollections.observableArrayList( 
+     "38", "48", "95","120", "150", "153", "155");
+    
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws NumberFormatException, IOException {
         FXMLLoader Loader = new FXMLLoader();
         
         Loader.setLocation(getClass().getResource("/fxml/Output_Screen.fxml"));
-        //System.out.println(getClass().getResource("/fxml/Output_Screen.fxml"));
+        
         Parent output_screen = Loader.load();
         Scene output_scene = new Scene(output_screen);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //output_scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+        output_scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         app_stage.setTitle("Load Generator");
         app_stage.centerOnScreen();
         try{
@@ -77,9 +85,9 @@ public class FXMLController  implements Initializable {
             }
   
            
-        //System.out.println(Env_var);
-        //InetAddress.getByName(DestIP);
-            String scriptContent;
+       
+            String scriptContent = null;
+            
             scriptContent = "cd /home/cms/LOADGEN/SIPP_LOADGEN/sipp-1.1rc6/\n" +
 ". ../Env_$5.sh\n" +
 "\n" +
@@ -104,7 +112,6 @@ public class FXMLController  implements Initializable {
         });
          thread.start();
           app_stage.setScene(output_scene);
-                //app_stage.hide(); //optional
           app_stage.show();
     }
      catch (IPException ex) {
@@ -127,7 +134,28 @@ public class FXMLController  implements Initializable {
                 Concur_call.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-    }    
+        //Run_Time.setItems(secondgen);
+        Script_2g.setSelected(true);
+        ToggleGroup toggleGroup = new ToggleGroup();
+    Script_2g.selectedProperty().addListener(new ChangeListener<Boolean>() {
+    @Override
+    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
+        if (isNowSelected) { 
+           Run_Time.setItems(secondgen);
+                            } 
+            }
+        });
+    Script_3g.selectedProperty().addListener(new ChangeListener<Boolean>() {
+    @Override
+    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
+        if (isNowSelected) { 
+             Run_Time.setItems(thirdgen);
+                            } 
+            }
+        });
+    }
+     
+    
 }
 class ValidateIPv4 {
 

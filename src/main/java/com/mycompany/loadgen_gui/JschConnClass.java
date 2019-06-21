@@ -27,7 +27,7 @@ public class JschConnClass  {
             in=channel.getInputStream();
             
             
-            //System.out.println("Connected");
+            
             String password = "root123";
             channel.connect();
             out.write((password + "\n").getBytes());
@@ -38,7 +38,6 @@ public class JschConnClass  {
                 while (in.available() > 0) {
                     int i = in.read(tmp, 0, 1024);
                     if (i < 0) break;
-                    //outputscreen.showdata(new String(tmp, 0, i));
                     System.out.println(new String(tmp, 0, i));
                 }
                 if (channel.isClosed()) {
@@ -83,7 +82,7 @@ public class JschConnClass  {
      session.disconnect();
         }
     catch (JSchException | SftpException e) {
-    System.out.println(e.getMessage().toString());
+    System.out.println(e.getMessage());
 }
     }
     

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -57,8 +58,11 @@
             <TextField id="No_call" fx:id="No_call" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <TextField id="Concur_call" fx:id="Concur_call" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <TextField id="Dest_IP" fx:id="Dest_IP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="Script_2g" mnemonicParsing="false" prefHeight="17.0" prefWidth="141.0" text="2G" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="Script_3g" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="53.0" text="3G" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <RadioButton fx:id="Script_2g" mnemonicParsing="false" prefHeight="17.0" prefWidth="141.0" selected="true" text="2G" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="Script_3g" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="53.0" text="3G" toggleGroup="$toggleGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <padding>
                   <Insets left="40.0" />
                </padding>
