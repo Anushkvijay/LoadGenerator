@@ -5,14 +5,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
-import java.security.Provider.Service;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.css.PseudoClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -21,15 +24,32 @@ import javafx.scene.control.TextArea;
  */
 public class Output_ScreenController  implements Initializable {
 
+   
+    
     @FXML
     private TextArea Out_area;
     final static String newline = "\n";
     boolean updated;
    
-    
+    @FXML
+    public void NewLoadbutton(ActionEvent event) throws IOException
+    {
+        FXMLLoader Loader = new FXMLLoader();
+        
+        Loader.setLocation(getClass().getResource("/fxml/FirstScreen.fxml"));
+        
+        Parent first_screen = Loader.load();
+        Scene first_scene = new Scene(first_screen);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        app_stage.setTitle("Integrated Load Generator v1.1");
+        app_stage.centerOnScreen();
+        app_stage.setScene(first_scene);
+        app_stage.show();
+    }
     public void showdata(String output_string)
     {   
-       
+     Out_area.setWrapText(false);
      if (Platform.isFxApplicationThread()) {
         Out_area.appendText(output_string);
         } else {
